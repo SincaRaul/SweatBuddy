@@ -1,5 +1,6 @@
 package com.example.workoutbuddy.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -14,13 +15,15 @@ import androidx.navigation.NavHostController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkoutDurationScreen(navController: NavHostController) {
-    var timeInMinutes by remember { mutableStateOf("") }
+    var expanded by remember { mutableStateOf(false) } // To control dropdown menu visibility
+    var selectedDuration by remember { mutableStateOf(60) } // Default workout duration
+    val durations = listOf(30, 45, 60, 75, 90, 105, 120) // Options for durations
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Header Section
@@ -35,49 +38,60 @@ fun WorkoutDurationScreen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "How much time do you want to spend in the gym?",
+                text = "Workout Length",
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 12.dp)
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Input Field Section with "minutes" label
+            // Dropdown Menu Section
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                TextField(
-                    value = timeInMinutes,
-                    onValueChange = { timeInMinutes = it },
-                    placeholder = { Text("Enter time") },
-                    colors = TextFieldDefaults.textFieldColors(
-                        containerColor = Color(0xFFA5D6A7), // Light green background
-                        focusedIndicatorColor = Color.Transparent, // Remove underline when focused
-                        unfocusedIndicatorColor = Color.Transparent, // Remove underline when unfocused
-                        cursorColor = MaterialTheme.colorScheme.primary
-                    ),
-                    shape = RoundedCornerShape(12.dp),
+                Box(
                     modifier = Modifier
                         .weight(1f)
-                        .padding(end = 8.dp),
-                    singleLine = true
-                )
+                        .padding(end = 8.dp)
+                ) {
+                    OutlinedButton(
+                        onClick = { expanded = true },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("$selectedDuration Minutes")
+                    }
 
-                Text(
-                    text = "Minutes",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    fontSize = 18.sp
-                )
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color(0xFFA5D6A7)) // Light green background
+                    ) {
+                        durations.forEach { duration ->
+                            DropdownMenuItem(
+                                onClick = {
+                                    selectedDuration = duration
+                                    expanded = false
+                                },
+                                text = {
+                                    Text(
+                                        text = "$duration Minutes",
+                                        color = MaterialTheme.colorScheme.onBackground // Match text color
+                                    )
+                                }
+                            )
+                        }
+                    }
+                }
             }
         }
 
         // Navigation Button
         Button(
             onClick = {
-                if (timeInMinutes.isNotEmpty()) {
-                    navController.navigate("summary_screen")
-                }
+                navController.navigate("summary_screen")
             },
             modifier = Modifier
                 .fillMaxWidth(0.5f) // Button width reduced to 50% of the screen

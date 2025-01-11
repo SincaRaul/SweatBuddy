@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GenderSelectionScreen(navController: NavHostController) {
     Column(
@@ -19,51 +20,58 @@ fun GenderSelectionScreen(navController: NavHostController) {
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Top text
+        // Top section
         Text(
             text = "Step 2 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )
 
-        // Push the middle content downward
-        Spacer(modifier = Modifier.weight(1f))
-
-        // Middle content
+        // Middle content section
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = "Select Your Gender",
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            Button(
-                onClick = {
-                    navController.navigate("age_screen")
-                },
-                modifier = Modifier
-                    .fillMaxWidth(0.5f)
-                    .height(50.dp)
-                    .padding(bottom = 8.dp)
+            // Gender Buttons in a Row
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Male")
-            }
+                Button(
+                    onClick = {
+                        navController.navigate("age_screen")
+                    },
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(50.dp)
+                        .padding(end = 8.dp), // Space between buttons
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Male")
+                }
 
-            Button(
-                onClick = {
-                    navController.navigate("age_screen")
-                },
-                modifier = Modifier
-                    .fillMaxWidth(0.5f)
-                    .height(50.dp)
-            ) {
-                Text("Female")
+                Button(
+                    onClick = {
+                        navController.navigate("age_screen")
+                    },
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(50.dp),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Female")
+                }
             }
         }
 
-        // Push the middle content upward from the bottom
-        Spacer(modifier = Modifier.weight(1f))
+        // Spacer to balance spacing at the bottom
+        Spacer(modifier = Modifier.height(24.dp))
     }
 }
