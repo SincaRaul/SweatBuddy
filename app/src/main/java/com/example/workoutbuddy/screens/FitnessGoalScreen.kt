@@ -34,7 +34,7 @@ fun FitnessGoalScreen(navController: NavHostController) {
     ) {
         // Header Section
         Text(
-            text = "Step 5 of 5",
+            text = "Step 6 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )

@@ -24,7 +24,7 @@ fun WeightScreen(navController: NavHostController) {
     ) {
         // Header Section
         Text(
-            text = "Step 4 of 5",
+            text = "Step 5 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )

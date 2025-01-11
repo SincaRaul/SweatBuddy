@@ -21,7 +21,7 @@ fun GenderSelectionScreen(navController: NavHostController) {
     ) {
         // Top text
         Text(
-            text = "Step 2 of 5",
+            text = "Step 2 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )

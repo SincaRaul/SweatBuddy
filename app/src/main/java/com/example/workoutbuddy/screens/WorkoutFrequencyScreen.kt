@@ -36,7 +36,7 @@ fun WorkoutFrequencyScreen(navController: NavHostController) {
     ) {
         // Header Section
         Text(
-            text = "Step 5 of 5",
+            text = "Step 7 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )

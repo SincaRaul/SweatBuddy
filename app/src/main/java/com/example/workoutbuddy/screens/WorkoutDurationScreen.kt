@@ -25,7 +25,7 @@ fun WorkoutDurationScreen(navController: NavHostController) {
     ) {
         // Header Section
         Text(
-            text = "Step 6 of 6",
+            text = "Step 8 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )

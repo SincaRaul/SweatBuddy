@@ -19,12 +19,12 @@ fun HeightScreen(navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Header Section
         Text(
-            text = "Step 4 of 5",
+            text = "Step 4 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )
@@ -37,14 +37,14 @@ fun HeightScreen(navController: NavHostController) {
                 text = "How Tall Are You?",
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 12.dp)
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
             // Input Field Section
             TextField(
                 value = height,
                 onValueChange = { height = it },
-                placeholder = { Text("Enter your age") },
+                placeholder = { Text("Enter your height") },
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color(0xFFA5D6A7), // Light green background
                     focusedIndicatorColor = Color.Transparent, // Text color when focused
@@ -69,7 +69,7 @@ fun HeightScreen(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth(0.5f) // Button width reduced to 50% of the screen
                 .height(50.dp) // Increased button height for a "fatter" appearance
-                .offset(y = (-96).dp) // Move the button up by 96dp
+                //.offset(y = (-96).dp) // Move the button up by 96dp
         ) {
             Text("Next Step")
         }

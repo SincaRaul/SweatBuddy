@@ -26,7 +26,7 @@ fun AgeScreen(navController: NavHostController) {
     ) {
         // Header Section
         Text(
-            text = "Step 3 of 5",
+            text = "Step 3 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )

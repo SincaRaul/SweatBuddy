@@ -24,7 +24,7 @@ fun NameScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Step 1 of 5",
+            text = "Step 1 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )
