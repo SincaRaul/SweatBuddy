@@ -42,7 +42,7 @@ fun NameScreen(navController: NavHostController) {
             TextField(
                 value = name,
                 onValueChange = { name = it },
-                placeholder = { Text("Your Name") },
+                placeholder = { Text("I.E. Bob") },
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color(0xFFA5D6A7),
                     focusedIndicatorColor = Color.Transparent,

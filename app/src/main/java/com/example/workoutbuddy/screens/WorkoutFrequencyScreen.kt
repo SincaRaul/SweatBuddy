@@ -15,7 +15,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun WorkoutFrequencyScreen(navController: NavHostController) {
     var expanded by remember { mutableStateOf(false) } // To control dropdown menu visibility
-    var selectedFrequency by remember { mutableStateOf("How many times per week would you like to train?") } // Default dropdown text
+    var selectedFrequency by remember { mutableStateOf("3") } // Default dropdown text
 
     val trainingFrequencies = listOf(
         "1",

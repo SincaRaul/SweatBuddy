@@ -34,7 +34,7 @@ fun WeightScreen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Please enter your weight.",
+                text = "Your Weight",
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(bottom = 12.dp)
@@ -63,7 +63,7 @@ fun WeightScreen(navController: NavHostController) {
         Button(
             onClick = {
                 //if (height.isNotEmpty()) { UNCOMMENT THIS LINE
-                    navController.navigate("fitness_goal_screen")
+                navController.navigate("fitness_goal_screen")
                 //} UNCOMMENT THIS LINE
             },
             modifier = Modifier
