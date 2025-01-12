@@ -91,13 +91,13 @@ fun WorkoutDurationScreen(navController: NavHostController) {
         // Navigation Button
         Button(
             onClick = {
-                navController.navigate("summary_screen")
+                navController.navigate("name_screen")
             },
             modifier = Modifier
                 .fillMaxWidth(0.5f) // Button width reduced to 50% of the screen
                 .height(50.dp) // Increased button height for a "fatter" appearance
         ) {
-            Text("Next Step")
+            Text("First Screen")
         }
     }
 }

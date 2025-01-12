@@ -1,8 +1,13 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
+
+val localProperties = gradleLocalProperties(rootDir, providers)
+val openAiApiKey = localProperties["OPENAI_API_KEY"] ?: ""
 
 android {
     namespace = "com.example.workoutbuddy"
@@ -16,6 +21,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
+        buildConfigField("String", "OPENAI_API_KEY", "\"$openAiApiKey\"")
+
     }
 
     buildTypes {
@@ -36,6 +45,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -60,9 +70,8 @@ dependencies {
     implementation ("androidx.compose.material3:material3:1.2.0-alpha08")
     implementation ("androidx.compose.ui:ui:1.4.0")
     implementation ("androidx.compose.ui:ui-text:1.4.0")
-
-
-
-
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
 }

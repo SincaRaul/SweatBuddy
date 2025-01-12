@@ -25,6 +25,10 @@ import com.example.workoutbuddy.screens.FitnessGoalScreen
 import com.example.workoutbuddy.screens.WeightScreen
 import com.example.workoutbuddy.screens.WorkoutFrequencyScreen
 import com.example.workoutbuddy.screens.WorkoutDurationScreen
+import androidx.lifecycle.lifecycleScope
+import com.example.workoutbuddy.api.ApiHelper
+import kotlinx.coroutines.launch
+
 
 
 
@@ -38,25 +42,28 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        lifecycleScope.launch {
+            ApiHelper.testApiCall()
+        }
     }
 }
 
-@Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
+    @Composable
+    fun AppNavigation() {
+        val navController = rememberNavController()
 
-    NavHost(
-        navController = navController,
-        startDestination = "name_screen"
-    ) {
-        composable("name_screen") { NameScreen(navController) }
-        composable("gender_screen") { GenderSelectionScreen(navController) }
-        composable("age_screen") { AgeScreen(navController) }
-        composable("height_screen") { HeightScreen(navController) }
-        composable("fitness_goal_screen") { FitnessGoalScreen(navController) }
-        composable("weight_screen") { WeightScreen(navController) }
-        composable("workout_frequency_screen") { WorkoutFrequencyScreen(navController) }
-        composable("workout_duration_screen") { WorkoutDurationScreen(navController) }
+        NavHost(
+            navController = navController,
+            startDestination = "name_screen"
+        ) {
+            composable("name_screen") { NameScreen(navController) }
+            composable("gender_screen") { GenderSelectionScreen(navController) }
+            composable("age_screen") { AgeScreen(navController) }
+            composable("height_screen") { HeightScreen(navController) }
+            composable("fitness_goal_screen") { FitnessGoalScreen(navController) }
+            composable("weight_screen") { WeightScreen(navController) }
+            composable("workout_frequency_screen") { WorkoutFrequencyScreen(navController) }
+            composable("workout_duration_screen") { WorkoutDurationScreen(navController) }
+        }
     }
-}
 
