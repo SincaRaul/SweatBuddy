@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("workout_plan_screen") {
                             // Some hypothetical final screen that shows the plan
-                            WorkoutPlanScreen(viewModel, navController, viewModel.answers.fitnessGoal, viewModel.answers.workoutFrequency, viewModel.answers.workoutDuration)
+                            WorkoutPlanScreen(viewModel, navController)
                         }
                         composable("day_detail_screen") {
                             // Some hypothetical detail screen that shows the plan

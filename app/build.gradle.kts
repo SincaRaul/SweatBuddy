@@ -7,7 +7,7 @@ plugins {
 }
 
 val localProperties = gradleLocalProperties(rootDir, providers)
-val openAiApiKey = localProperties["OPENAI_API_KEY"] ?: ""
+val openAiApiKey = localProperties.getProperty("OPENAI_API_KEY") ?: ""
 
 android {
     namespace = "com.example.workoutbuddy"
@@ -21,7 +21,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
 
         buildConfigField("String", "OPENAI_API_KEY", "\"$openAiApiKey\"")
 
