@@ -13,7 +13,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeightScreen(navController: NavHostController) {
+fun HeightScreen(viewModel: QuestionnaireViewModel, navController: NavHostController) {
     var height by remember { mutableStateOf("") }
 
     Column(

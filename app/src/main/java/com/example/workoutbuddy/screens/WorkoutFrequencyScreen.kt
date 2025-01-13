@@ -2,7 +2,6 @@ package com.example.workoutbuddy.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,7 +12,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WorkoutFrequencyScreen(navController: NavHostController) {
+fun WorkoutFrequencyScreen(viewModel: QuestionnaireViewModel, navController: NavHostController) {
     var expanded by remember { mutableStateOf(false) } // To control dropdown menu visibility
     var selectedFrequency by remember { mutableStateOf("3") } // Default dropdown text
 

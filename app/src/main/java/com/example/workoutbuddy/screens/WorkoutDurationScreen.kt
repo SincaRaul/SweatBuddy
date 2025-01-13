@@ -2,7 +2,6 @@ package com.example.workoutbuddy.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,7 +13,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WorkoutDurationScreen(navController: NavHostController) {
+fun WorkoutDurationScreen(viewModel: QuestionnaireViewModel, navController: NavHostController) {
     var expanded by remember { mutableStateOf(false) } // To control dropdown menu visibility
     var selectedDuration by remember { mutableStateOf(60) } // Default workout duration
     val durations = listOf(30, 45, 60, 75, 90, 105, 120) // Options for durations
@@ -91,13 +90,13 @@ fun WorkoutDurationScreen(navController: NavHostController) {
         // Navigation Button
         Button(
             onClick = {
-                navController.navigate("name_screen")
+                navController.navigate("workout_plan_screen")
             },
             modifier = Modifier
                 .fillMaxWidth(0.5f) // Button width reduced to 50% of the screen
                 .height(50.dp) // Increased button height for a "fatter" appearance
         ) {
-            Text("First Screen")
+            Text("Generate Workout Plan", fontSize = 18.sp)
         }
     }
 }

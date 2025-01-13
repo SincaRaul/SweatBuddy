@@ -12,7 +12,7 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WeightScreen(navController: NavHostController) {
+fun WeightScreen(viewModel: QuestionnaireViewModel, navController: NavHostController) {
     var weight by remember { mutableStateOf("") }
 
     Column(

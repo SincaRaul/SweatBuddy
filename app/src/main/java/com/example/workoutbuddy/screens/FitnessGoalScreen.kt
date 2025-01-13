@@ -2,19 +2,17 @@ package com.example.workoutbuddy.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FitnessGoalScreen(navController: NavHostController) {
+fun FitnessGoalScreen(viewModel: QuestionnaireViewModel, navController: NavHostController) {
     var expanded by remember { mutableStateOf(false) } // To control dropdown menu visibility
     var selectedGoal by remember { mutableStateOf("Lose Weight") } // Default dropdown text
 

@@ -9,65 +9,51 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-
+import com.example.workoutbuddy.api.ApiHelper
+import com.example.workoutbuddy.models.WorkoutPlan
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NameScreen(navController: NavHostController) {
-    var name by remember { mutableStateOf("") }
+fun NameScreen(viewModel: QuestionnaireViewModel, navController: NavHostController) {
+    var name by remember { mutableStateOf(viewModel.answers.name) }
+    var workoutPlan by remember { mutableStateOf<WorkoutPlan?>(null) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Step 1 of 8",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.primary
+    val coroutineScope = rememberCoroutineScope()
+
+    Column {
+        TextField(
+            value = name,
+            onValueChange = {
+                name = it
+                viewModel.answers.name = it
+            }
         )
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = "Enter Your Name",
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
 
-            TextField(
-                value = name,
-                onValueChange = { name = it },
-                placeholder = { Text("I.E. Bob") },
-                colors = TextFieldDefaults.textFieldColors(
-                    containerColor = Color(0xFFA5D6A7),
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    cursorColor = MaterialTheme.colorScheme.primary
-                ),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                singleLine = true
-            )
+        Button(onClick = {
+            // Navigate to next screen
+            navController.navigate("gender_screen")
+        }) {
+            Text("Next Step")
         }
 
-        Button(
-            onClick = {
-                //if (name.isNotEmpty()) { UNCOMMENT AFTER FINISHING THE NEXT SCREENS
-                    navController.navigate("gender_screen")
-                //} SAME AS ABOVE
-            },
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(50.dp)
-        ) {
-            Text("Next Step")
+        Button(onClick = {
+            coroutineScope.launch {
+                // This function expects QuestionnaireAnswers
+                // and returns WorkoutPlan?
+                workoutPlan = ApiHelper.fetchWorkoutPlan(viewModel.answers.toString())
+            }
+        }) {
+            Text("Generate Plan")
+        }
+
+        workoutPlan?.let { plan ->
+            // Display the day_name, etc.
+            Text("Days in plan: ${plan.days.size}")
+            plan.days.forEach { day ->
+                Text("Day: ${day.day_name}")
+            }
         }
     }
 }
+
