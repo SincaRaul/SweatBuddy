@@ -1,8 +1,9 @@
+// ApiHelper.kt
 package com.example.workoutbuddy.api
 
 import android.util.Log
 import com.example.workoutbuddy.BuildConfig
-import com.example.workoutbuddy.models.WorkoutPlan
+import com.example.workoutbuddy.models.*
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.Response
 
 object ApiHelper {
 
@@ -39,7 +41,7 @@ object ApiHelper {
             .build()
     }
 
-    // We'll use the same API service we defined
+    // Define the API service
     val apiService: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
@@ -54,15 +56,15 @@ object ApiHelper {
             try {
                 // 1) Construct the ChatCompletionRequest
                 val requestBody = ChatCompletionRequest(
-                    model = "gpt-3.5-turbo",
+                    model = "gpt-4o",
                     messages = listOf(
                         ChatMessage(role = "user", content = prompt)
                     ),
-                    max_tokens = 800 // or however many you want
+                    max_tokens = 1600 // or however many you want
                 )
 
-                // 2) Make the API call (synchronously)
-                val response = apiService.generateChatCompletion(requestBody).execute()
+                // 2) Make the API call
+                val response: Response<ChatCompletionResponse> = apiService.generateChatCompletion(requestBody)
 
                 if (response.isSuccessful) {
                     val chatResponse = response.body()
@@ -73,15 +75,15 @@ object ApiHelper {
                         return@withContext parseJsonToWorkoutPlan(content)
                     } else {
                         Log.e("API_ERROR", "No content in GPT response")
-                        null
+                        return@withContext null
                     }
                 } else {
                     Log.e("API_ERROR", response.errorBody()?.string() ?: "Unknown error")
-                    null
+                    return@withContext null
                 }
             } catch (e: Exception) {
                 Log.e("API_EXCEPTION", e.message ?: "Unknown exception")
-                null
+                return@withContext null
             }
         }
     }

@@ -72,6 +72,7 @@ fun WorkoutDurationScreen(viewModel: QuestionnaireViewModel, navController: NavH
                             DropdownMenuItem(
                                 onClick = {
                                     selectedDuration = duration
+                                    viewModel.setWorkoutDuration(duration)
                                     expanded = false
                                 },
                                 text = {

@@ -1,14 +1,13 @@
 package com.example.workoutbuddy.api
-
-
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.Call
+
 
 interface ApiService {
-
+    @Headers("Content-Type: application/json")
     @POST("chat/completions")
-    fun generateChatCompletion( // sau generateWorkoutPlan
-        @Body request: ChatCompletionRequest
-    ): Call<ChatCompletionResponse>
+    suspend fun generateChatCompletion(@Body request: ChatCompletionRequest): Response<ChatCompletionResponse>
 }

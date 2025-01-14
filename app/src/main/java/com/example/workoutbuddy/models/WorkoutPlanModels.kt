@@ -1,19 +1,19 @@
+// WorkoutPlan.kt
 package com.example.workoutbuddy.models
 
-// This is the top-level JSON object we expect from GPT
+import java.io.Serializable
+
 data class WorkoutPlan(
     val days: List<DayPlan>
-)
+) : Serializable
 
-// Each "day" in "days"
 data class DayPlan(
     val day_name: String,
     val exercises: List<Exercise>
-)
+) : Serializable
 
-// Each exercise in that day
 data class Exercise(
     val name: String,
     val sets: Int,
-    val reps: Int
-)
+    val reps: String // Changed from Int to String to handle both numeric and textual reps
+) : Serializable

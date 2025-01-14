@@ -6,12 +6,35 @@ import com.example.workoutbuddy.models.QuestionnaireAnswers
 class QuestionnaireViewModel : ViewModel() {
     val answers = QuestionnaireAnswers()
 
-    // Possibly define helper methods to update fields:
     fun setName(name: String) {
         answers.name = name
     }
     fun setGender(gender: String) {
         answers.gender = gender
     }
-    // Add methods to update answers if needed
+
+    fun setWorkoutFrequency(frequency: Int) {
+        answers.workoutFrequency = frequency;
+    }
+
+    fun setWeight(weight: Int) {
+        answers.weight = weight
+    }
+
+    fun setHeight(height: Int) {
+        answers.height = height
+    }
+
+    fun setAge(age: Int) {
+        answers.age = age
+    }
+
+    fun setWorkoutDuration(duration: Int) {
+        answers.workoutDuration = duration
+    }
+
+    fun setFitnessGoal(goal: String) {
+        answers.fitnessGoal = goal
+    }
+
 }

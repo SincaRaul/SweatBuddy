@@ -37,23 +37,7 @@ fun NameScreen(viewModel: QuestionnaireViewModel, navController: NavHostControll
             Text("Next Step")
         }
 
-        Button(onClick = {
-            coroutineScope.launch {
-                // This function expects QuestionnaireAnswers
-                // and returns WorkoutPlan?
-                workoutPlan = ApiHelper.fetchWorkoutPlan(viewModel.answers.toString())
-            }
-        }) {
-            Text("Generate Plan")
-        }
 
-        workoutPlan?.let { plan ->
-            // Display the day_name, etc.
-            Text("Days in plan: ${plan.days.size}")
-            plan.days.forEach { day ->
-                Text("Day: ${day.day_name}")
-            }
-        }
     }
 }
 

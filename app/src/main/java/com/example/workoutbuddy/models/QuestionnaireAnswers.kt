@@ -73,4 +73,3 @@ fun QuestionnaireAnswers.createPrompt(): String {
 
     """.trimIndent()
 }
-

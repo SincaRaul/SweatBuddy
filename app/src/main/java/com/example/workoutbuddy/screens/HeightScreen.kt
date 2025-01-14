@@ -70,9 +70,10 @@ fun HeightScreen(viewModel: QuestionnaireViewModel, navController: NavHostContro
         // Navigation Button
         Button(
             onClick = {
-                //if (height.isNotEmpty()) { UNCOMMENT THIS LINE
+                if (height.isNotEmpty()) {
+                    viewModel.setHeight(height.toInt()) // Save the height
                     navController.navigate("weight_screen") // Navigate to the next screen
-                //} UNCOMMENT THIS LINE
+                }
             },
             modifier = Modifier
                 .fillMaxWidth(0.5f) // Button width reduced to 50% of the screen

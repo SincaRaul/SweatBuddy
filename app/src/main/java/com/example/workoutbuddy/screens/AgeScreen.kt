@@ -82,6 +82,7 @@ fun AgeScreen(viewModel: QuestionnaireViewModel, navController: NavHostControlle
         Button(
             onClick = {
                 navController.navigate("height_screen")
+                viewModel.setAge(selectedAge);
             },
             modifier = Modifier
                 .fillMaxWidth(0.5f) // Button width reduced to 50% of the screen

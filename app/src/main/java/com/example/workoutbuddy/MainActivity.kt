@@ -9,7 +9,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.workoutbuddy.screens.*
+import com.example.workoutbuddy.screens.AgeScreen
+import com.example.workoutbuddy.screens.DayDetailScreen
+import com.example.workoutbuddy.screens.FitnessGoalScreen
+import com.example.workoutbuddy.screens.GenderSelectionScreen
+import com.example.workoutbuddy.screens.HeightScreen
+import com.example.workoutbuddy.screens.NameScreen
+import com.example.workoutbuddy.screens.QuestionnaireViewModel
+import com.example.workoutbuddy.screens.WeightScreen
+import com.example.workoutbuddy.screens.WorkoutDurationScreen
+import com.example.workoutbuddy.screens.WorkoutFrequencyScreen
+import com.example.workoutbuddy.screens.WorkoutPlanScreen
 import com.example.workoutbuddy.ui.theme.WorkoutBuddyTheme
 import kotlinx.coroutines.launch
 
@@ -63,7 +73,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("day_detail_screen") {
                             // Some hypothetical detail screen that shows the plan
-                            DayDetailScreen(navController)
+                            DayDetailScreen(viewModel, navController)
                         }
                     }
                 }

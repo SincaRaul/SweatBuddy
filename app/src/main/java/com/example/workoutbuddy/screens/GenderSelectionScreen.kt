@@ -45,6 +45,7 @@ fun GenderSelectionScreen(viewModel: QuestionnaireViewModel, navController: NavH
             ) {
                 Button(
                     onClick = {
+                        viewModel.setGender("Male")
                         navController.navigate("age_screen")
                     },
                     modifier = Modifier
@@ -58,6 +59,7 @@ fun GenderSelectionScreen(viewModel: QuestionnaireViewModel, navController: NavH
 
                 Button(
                     onClick = {
+                        viewModel.setGender("Female")
                         navController.navigate("age_screen")
                     },
                     modifier = Modifier

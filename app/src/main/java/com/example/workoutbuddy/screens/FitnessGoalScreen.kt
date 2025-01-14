@@ -96,6 +96,7 @@ fun FitnessGoalScreen(viewModel: QuestionnaireViewModel, navController: NavHostC
         // Navigation Button
         Button(
             onClick = {
+                viewModel.setFitnessGoal(selectedGoal) // Save the selected goal
                 navController.navigate("workout_frequency_screen") // Navigate to the next screen
             },
             modifier = Modifier
