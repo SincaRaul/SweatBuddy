@@ -19,14 +19,11 @@ fun GenderSelectionScreen(viewModel: QuestionnaireViewModel, navController: NavH
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Top section
         Text(
             text = "Step 2 of 8",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )
-
-        // Middle content section
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
@@ -37,8 +34,6 @@ fun GenderSelectionScreen(viewModel: QuestionnaireViewModel, navController: NavH
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
-
-            // Gender Buttons in a Row
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
@@ -56,7 +51,6 @@ fun GenderSelectionScreen(viewModel: QuestionnaireViewModel, navController: NavH
                 ) {
                     Text("Male")
                 }
-
                 Button(
                     onClick = {
                         viewModel.setGender("Female")
@@ -71,8 +65,6 @@ fun GenderSelectionScreen(viewModel: QuestionnaireViewModel, navController: NavH
                 }
             }
         }
-
-        // Spacer to balance spacing at the bottom
         Spacer(modifier = Modifier.height(24.dp))
     }
 }

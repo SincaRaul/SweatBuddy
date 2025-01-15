@@ -1,4 +1,3 @@
-// ApiHelper.kt
 package com.example.workoutbuddy.api
 
 import android.util.Log
@@ -12,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
 object ApiHelper {
 
@@ -30,6 +30,9 @@ object ApiHelper {
                 chain.proceed(newRequest)
             }
             .addInterceptor(logging)
+            .connectTimeout(60, TimeUnit.SECONDS) // Increased timeout
+            .readTimeout(60, TimeUnit.SECONDS)    // Increased timeout
+            .writeTimeout(60, TimeUnit.SECONDS)   // Increased timeout
             .build()
     }
 
@@ -56,11 +59,11 @@ object ApiHelper {
             try {
                 // 1) Construct the ChatCompletionRequest
                 val requestBody = ChatCompletionRequest(
-                    model = "gpt-4o",
+                    model = "gpt-4o-mini",
                     messages = listOf(
                         ChatMessage(role = "user", content = prompt)
                     ),
-                    max_tokens = 1600 // or however many you want
+                    max_tokens = 2500
                 )
 
                 // 2) Make the API call
@@ -71,8 +74,10 @@ object ApiHelper {
                     // We'll assume the first choice holds the JSON
                     val content = chatResponse?.choices?.firstOrNull()?.message?.content
                     if (content != null) {
+                        // Extract JSON from the response
+                        val jsonContent = extractJson(content)
                         // 3) Parse JSON into WorkoutPlan data class
-                        return@withContext parseJsonToWorkoutPlan(content)
+                        return@withContext parseJsonToWorkoutPlan(jsonContent)
                     } else {
                         Log.e("API_ERROR", "No content in GPT response")
                         return@withContext null
@@ -85,6 +90,19 @@ object ApiHelper {
                 Log.e("API_EXCEPTION", e.message ?: "Unknown exception")
                 return@withContext null
             }
+        }
+    }
+
+    /**
+     * This helper extracts the JSON part from the GPT response.
+     */
+    private fun extractJson(content: String): String {
+        val startIndex = content.indexOf("{")
+        val endIndex = content.lastIndexOf("}")
+        return if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+            content.substring(startIndex, endIndex + 1)
+        } else {
+            content
         }
     }
 

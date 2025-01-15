@@ -22,6 +22,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        vectorDrawables.useSupportLibrary = true
+
         buildConfigField("String", "OPENAI_API_KEY", "\"$openAiApiKey\"")
 
     }
@@ -74,6 +76,10 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation ("androidx.compose.material:material-icons-extended:<version>")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation ("androidx.activity:activity-compose:1.7.2")
+    implementation ("androidx.navigation:navigation-compose:2.7.0")
+    implementation ("com.google.code.gson:gson:2.10.1")
 
 
 

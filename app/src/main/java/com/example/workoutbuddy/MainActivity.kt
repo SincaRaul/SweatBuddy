@@ -1,27 +1,26 @@
+// MainActivity.kt
 package com.example.workoutbuddy
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.remember
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.workoutbuddy.screens.AgeScreen
-import com.example.workoutbuddy.screens.DayDetailScreen
 import com.example.workoutbuddy.screens.FitnessGoalScreen
 import com.example.workoutbuddy.screens.GenderSelectionScreen
 import com.example.workoutbuddy.screens.HeightScreen
 import com.example.workoutbuddy.screens.NameScreen
 import com.example.workoutbuddy.screens.QuestionnaireViewModel
 import com.example.workoutbuddy.screens.WeightScreen
+import com.example.workoutbuddy.screens.WorkoutDetailsScreen
 import com.example.workoutbuddy.screens.WorkoutDurationScreen
 import com.example.workoutbuddy.screens.WorkoutFrequencyScreen
 import com.example.workoutbuddy.screens.WorkoutPlanScreen
 import com.example.workoutbuddy.ui.theme.WorkoutBuddyTheme
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -29,61 +28,47 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WorkoutBuddyTheme {
-                // Top-level surface for theming
                 Surface {
-                    // Create a single instance of the ViewModel
-                    val viewModel = remember { QuestionnaireViewModel() }
-
-                    // Set up navigation
                     val navController = rememberNavController()
+                    val questionnaireViewModel: QuestionnaireViewModel = viewModel()
 
-                    // Build your NavHost
                     NavHost(
                         navController = navController,
                         startDestination = "name_screen"
                     ) {
                         composable("name_screen") {
-                            NameScreen(viewModel, navController)
+                            NameScreen(questionnaireViewModel, navController)
                         }
                         composable("gender_screen") {
-                            // Pass the same viewModel if you want to
-                            GenderSelectionScreen(viewModel, navController)
+                            GenderSelectionScreen(questionnaireViewModel, navController)
                         }
                         composable("age_screen") {
-                            AgeScreen(viewModel, navController)
+                            AgeScreen(questionnaireViewModel, navController)
                         }
                         composable("height_screen") {
-                            HeightScreen(viewModel, navController)
+                            HeightScreen(questionnaireViewModel, navController)
                         }
                         composable("fitness_goal_screen") {
-                            FitnessGoalScreen(viewModel, navController)
+                            FitnessGoalScreen(questionnaireViewModel, navController)
                         }
                         composable("weight_screen") {
-                            WeightScreen(viewModel, navController)
+                            WeightScreen(questionnaireViewModel, navController)
                         }
                         composable("workout_frequency_screen") {
-                            WorkoutFrequencyScreen(viewModel, navController)
+                            WorkoutFrequencyScreen(questionnaireViewModel, navController)
                         }
                         composable("workout_duration_screen") {
-                            WorkoutDurationScreen(viewModel, navController)
+                            WorkoutDurationScreen(questionnaireViewModel, navController)
                         }
                         composable("workout_plan_screen") {
-                            // Some hypothetical final screen that shows the plan
-                            WorkoutPlanScreen(viewModel, navController)
+                            WorkoutPlanScreen(questionnaireViewModel, navController)
                         }
-                        composable("day_detail_screen") {
-                            // Some hypothetical detail screen that shows the plan
-                            DayDetailScreen(viewModel, navController)
+                        composable("workout_details_screen") { // Register the new screen
+                            WorkoutDetailsScreen(questionnaireViewModel)
                         }
                     }
                 }
             }
-        }
-
-        // Example: If you still want to do an API call at app start
-        // (but your key is invalid right now)
-        lifecycleScope.launch {
-            //ApiHelper.fetchWorkoutPlan(viewModel.answers)
         }
     }
 }

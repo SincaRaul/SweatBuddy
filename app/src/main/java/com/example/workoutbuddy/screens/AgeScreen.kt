@@ -1,9 +1,26 @@
 package com.example.workoutbuddy.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,8 +30,8 @@ import androidx.navigation.NavHostController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgeScreen(viewModel: QuestionnaireViewModel, navController: NavHostController) {
-    var expanded by remember { mutableStateOf(false) } // To control dropdown menu visibility
-    var selectedAge by remember { mutableStateOf(18) } // Default age set to 18
+    var expanded by remember { mutableStateOf(false) }
+    var selectedAge by remember { mutableStateOf(18) }
 
     Column(
         modifier = Modifier
@@ -29,7 +46,6 @@ fun AgeScreen(viewModel: QuestionnaireViewModel, navController: NavHostControlle
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
@@ -52,13 +68,12 @@ fun AgeScreen(viewModel: QuestionnaireViewModel, navController: NavHostControlle
                 ) {
                     Text(text = "Age: $selectedAge")
                 }
-
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color(0xFFA5D6A7)) // Light green background like NameScreen
+                        .background(Color(0xFFA5D6A7))
                 ) {
                     (12..100).forEach { age ->
                         DropdownMenuItem(
@@ -69,7 +84,7 @@ fun AgeScreen(viewModel: QuestionnaireViewModel, navController: NavHostControlle
                             text = {
                                 Text(
                                     text = age.toString(),
-                                    color = MaterialTheme.colorScheme.onBackground // Match text color to background
+                                    color = MaterialTheme.colorScheme.onBackground
                                 )
                             }
                         )
@@ -78,15 +93,14 @@ fun AgeScreen(viewModel: QuestionnaireViewModel, navController: NavHostControlle
             }
         }
 
-        // Navigation Button
         Button(
             onClick = {
                 navController.navigate("height_screen")
                 viewModel.setAge(selectedAge);
             },
             modifier = Modifier
-                .fillMaxWidth(0.5f) // Button width reduced to 50% of the screen
-                .height(50.dp) // Increased button height for a "fatter" appearance
+                .fillMaxWidth(0.5f)
+                .height(50.dp)
         ) {
             Text("Next Step")
         }

@@ -1,3 +1,4 @@
+// HeightScreen.kt
 package com.example.workoutbuddy.screens
 
 import androidx.compose.foundation.layout.*
@@ -7,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -15,6 +17,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun HeightScreen(viewModel: QuestionnaireViewModel, navController: NavHostController) {
     var height by remember { mutableStateOf("") }
+    var isValid by remember { mutableStateOf(true) }
 
     Column(
         modifier = Modifier
@@ -27,7 +30,9 @@ fun HeightScreen(viewModel: QuestionnaireViewModel, navController: NavHostContro
         Text(
             text = "Step 4 of 8",
             style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
 
         Column(
@@ -38,49 +43,79 @@ fun HeightScreen(viewModel: QuestionnaireViewModel, navController: NavHostContro
                 text = "How Tall Are You?",
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            // Input Field Section
-            TextField(
-                value = height,
-                onValueChange = { height = it },
-                placeholder = { Text("Enter your height") },
-                colors = TextFieldDefaults.textFieldColors(
-                    containerColor = Color(0xFFA5D6A7), // Light green background
-                    focusedIndicatorColor = Color.Transparent, // Text color when focused
-                    unfocusedIndicatorColor = Color.Transparent, // Text color when unfocused
-                    cursorColor = MaterialTheme.colorScheme.primary
-                ),
-                shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(top = 8.dp),
-                singleLine = true
+                    .padding(bottom = 12.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center
             )
 
-            Text(
-                text = "CM",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 18.sp
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                // Input Field Section
+                TextField(
+                    value = height,
+                    onValueChange = { input ->
+                        height = input
+                        val heightInt = input.toIntOrNull()
+                        isValid = heightInt != null && heightInt in 60..220
+                    },
+                    placeholder = { Text("Enter your height") },
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = Color(0xFFA5D6A7), // Light green background
+                        focusedIndicatorColor = if (isValid) Color.Transparent else MaterialTheme.colorScheme.error, // Red border if invalid
+                        unfocusedIndicatorColor = if (isValid) Color.Transparent else MaterialTheme.colorScheme.error, // Red border if invalid
+                        cursorColor = MaterialTheme.colorScheme.primary
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .width(200.dp)
+                        .padding(top = 8.dp),
+                    singleLine = true
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "CM",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontSize = 22.sp
+                )
+            }
+            // Display error message if input is invalid
+            if (!isValid && height.isNotEmpty()) {
+                Text(
+                    text = "Please enter a height between 60 and 220 cm.",
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier
+                        .padding(top = 4.dp)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
         }
 
         // Navigation Button
         Button(
             onClick = {
-                if (height.isNotEmpty()) {
-                    viewModel.setHeight(height.toInt()) // Save the height
-                    navController.navigate("weight_screen") // Navigate to the next screen
+                val heightInt = height.toIntOrNull()
+                if (heightInt != null && heightInt in 60..220) { // Validate the height
+                    viewModel.setHeight(heightInt) // Save the height
+                    navController.navigate("weight_screen")
                 }
             },
+            enabled = isValid && height.isNotEmpty(), // Enable only if input is valid and not empty
             modifier = Modifier
-                .fillMaxWidth(0.5f) // Button width reduced to 50% of the screen
-                .height(50.dp) // Increased button height for a "fatter" appearance
-                //.offset(y = (-96).dp) // Move the button up by 96dp
+                .fillMaxWidth(0.5f)
+                .height(50.dp)
         ) {
-            Text("Next Step")
+            Text(
+                text = "Next Step",
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }

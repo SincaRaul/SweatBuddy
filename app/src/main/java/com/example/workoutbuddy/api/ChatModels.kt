@@ -1,4 +1,3 @@
-// ChatModels.kt
 package com.example.workoutbuddy.api
 
 /**

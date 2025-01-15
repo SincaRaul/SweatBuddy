@@ -1,4 +1,3 @@
-// QuestionnaireAnswers.kt
 package com.example.workoutbuddy.models
 
 data class QuestionnaireAnswers(
@@ -25,35 +24,6 @@ fun QuestionnaireAnswers.createPrompt(): String {
         Preferred Workout Duration: $workoutDuration minutes
     """.trimIndent()
 
-    // 2) Decide recommended split
-    val recommendedSplit = when (workoutFrequency) {
-        1 -> "Full body once a week."
-        2 -> "Upper/Lower split."
-        3 -> "Push/Pull/Legs."
-        4 -> "Upper/Lower repeated."
-        5 -> "Push/Pull/Legs plus two extra sessions."
-        6 -> "Push/Pull/Legs repeated (6 day)."
-        7 -> "Daily workouts, possibly individual muscle groups."
-        else -> "Custom split."
-    }
-
-    // 3) Reps & sets based on goal
-    val (repRange, sets) = when (fitnessGoal.lowercase()) {
-        "build muscle", "hypertrophy" -> "8-12 reps" to "3-4 sets"
-        "lose fat", "endurance"       -> "12-15 reps" to "2-3 sets"
-        "strength"                    -> "4-6 reps"  to "4-5 sets"
-        else -> "8-12 reps" to "3-4 sets"
-    }
-
-    // 4) Limit number of exercises
-    val maxExercises = when {
-        workoutDuration <= 30 -> 3
-        workoutDuration <= 60 -> 5
-        else -> 7
-    }
-
-    // 5) Construct the actual instructions to ChatGPT
-    // You can instruct it to create each day’s plan, sets, reps, etc.
     return """
         Create a personalized workout plan for the following user:
         

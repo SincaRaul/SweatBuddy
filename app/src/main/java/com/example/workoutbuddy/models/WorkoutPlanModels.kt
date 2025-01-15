@@ -1,4 +1,3 @@
-// WorkoutPlan.kt
 package com.example.workoutbuddy.models
 
 import java.io.Serializable
@@ -15,5 +14,5 @@ data class DayPlan(
 data class Exercise(
     val name: String,
     val sets: Int,
-    val reps: String // Changed from Int to String to handle both numeric and textual reps
+    val reps: String
 ) : Serializable
